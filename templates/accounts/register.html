@@ -1,0 +1,122 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+
+{% block title %} Register | {{site_name}}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center align-items-center">
+  <div class="col-md-8 pt-3">
+    <div class="card" data-aos="fade-right" data-delay-aos="50">
+      <div class="card-title justify-content-center m-0 text-center p-2">
+        <h3 class="m-0 p-0">Sign Up</h3>
+      </div>
+      <div class="card-body">
+        <form action="{% url 'accounts-register' %}" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <h5 class="mb-1"><strong>Basic Information</strong></h5>
+          <div class="row mt-1">
+            <label class="col-sm-3 col-form-label" for="inputemail">Email address <span class="text-danger">*</span></label>
+            <div class="col-sm-9">
+              <input required type="email" name="email" placeholder="abc@gmail.com" class="form-control" id="inputemail"
+              value="{{ FieldValues.email }}" />
+              <div class="invalid-feedback invalid-email-feedback" style="display: none"></div>
+              <p class="text-sm text-success email-success" style="display: none;"></p>
+            </div>
+          </div>
+        
+          <div class="row mt-1">
+            <label class="col-sm-3 col-form-label" for="inputfullname">Full Name <span class="text-danger">*</span></label>
+            <div class="col-sm-9">
+              <input required type="text" name="fullname" placeholder="Fullname" class="form-control"
+              id="inputfullname" value="{{ FieldValues.fullname }}" />
+            </div>
+          </div>
+        
+          <div class="row mt-1">
+            <label class="col-sm-3 col-form-label" for="inputfullname">Gender <span class="text-danger">*</span></label>
+            <div class="col-sm-9 d-flex">
+              <div class="form-check my-1">
+                <input class="form-check-input" type="radio" name="gender" id="inputgender_M" value="Male" required {% if FieldValues.gender == 'Male' %}checked{% endif %}>
+                <label class="form-check-label" for="inputgender_M">
+                  Male
+                </label>
+              </div>
+              <div class="form-check mx-3 my-1">
+                <input class="form-check-input" type="radio" name="gender" id="inputgender_F" value="Female" required {% if FieldValues.gender == 'Female' %}checked{% endif %}>
+                <label class="form-check-label" for="inputgender_F">
+                  Female
+                </label>
+              </div>
+            </div>
+          </div>
+        
+          <div class="row mt-1">
+            <label for="inputmobile_no" class="col-sm-3 col-form-label">Mobile Number <span class="text-danger">*</span></label>
+            <div class="col-sm-9">
+              <input required type="tel" class="form-control" name="mobile_no" id="inputmobile_no" maxlength="18"
+                value="{{ FieldValues.mobile_no_full }}">
+            </div>
+          </div>
+        
+          <div class="row mt-1">
+            <label class="col-sm-3 col-form-label" for="inputpassword">Password <span class="text-danger">*</span> 
+              <span class="nvs-tooltip" href="#" data-bs-toggle="tooltip" data-bs-placement="top"
+                    data-bs-custom-class="custom-tooltip" data-bs-title="<strong>★</strong> Password must contain atleast 8 characters." data-bs-html="true">
+                    <span class="badge rounded-pill text-bg-warning">i</span>
+                </span>
+            </label>
+            <div class="col-sm-9">
+              <div class="input-group">
+                <input id="inputpassword" type="password" class="form-control" placeholder="Password" required name="password">
+                <span class="input-group-text">
+                  <i toggle="#inputpassword" class="fa fa-fw toggle-password fa-eye"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group mt-3">
+            <div class="form-check">
+              <input required class="form-check-input check_box_nvs" name="terms_cond" type="checkbox" id="gridCheck" {% if FieldValues.terms_cond == 'on' %}checked{% endif %}/>
+              <label class="form-check-label" for="gridCheck">
+                I agree all statements in <a target="_blank" href="/" class="text-body"><u>Terms of service</u></a>
+              </label>
+            </div>
+          </div>
+
+          <button class="btn btn-default w-100 mt-3 submit-btn" type="submit">Submit</button>
+          
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
+
+{% block scripts %}
+<script src="{% static 'main/js/email_auto.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/intlTelInput.min.js"></script>
+<script>
+  const input = document.querySelector("#inputmobile_no");
+      window.intlTelInput(input, {
+        separateDialCode: true,
+        hiddenInput: "mobile_no_full",
+        nationalMode: false, 
+        preferredCountries: ["in"],
+        initialCountry: "auto",
+        geoIpLookup: callback => {
+          fetch("https://ipapi.co/json")
+            .then(res => res.json())
+            .then(data => callback(data.country_code))
+            .catch(() => callback("in"));
+        },
+        utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js",
+      });
+</script>
+{% endblock scripts %}
+
+
+{% block styles %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/css/intlTelInput.css">
+{% endblock styles %}
+  

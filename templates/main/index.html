@@ -1,0 +1,83 @@
+{% extends 'base/index.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Dashboard</h2>
+    <div class="row">
+        <div class="col-md-4">
+            {% include 'main/_details/get_dashboard_card.html' with title="User Registrations" count=user_count color="default" icon="fa-user-plus" %}
+        </div>
+        <div class="col-md-4">
+            {% include 'main/_details/get_dashboard_card.html' with title="Analysis File count" count=analysis_count color="primary" icon="fa-user-gear" %}
+        </div>
+        <div class="col-md-4">
+            {% include 'main/_details/get_dashboard_card.html' with title="Contacts Messages" count=contact_msg_count color="warning" icon="fa-comments" %}
+        </div>
+    </div>
+    <div class="row justify-content-center d-flex">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <span>Users Based on Gender</span>
+                </div>
+                <div class="card-body">
+                    <canvas id="genderChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 ">
+            <div class="card">
+                <div class="card-header">
+                    <span>Users Based on Date</span>
+                </div>
+                <div class="card-body">
+                    <canvas id="monthlyChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block scripts %}
+<script>
+    var genderData = {{ graphs_1|safe }};
+    var monthlyData = {{ graphs_2|safe }};
+
+    var genderChartCanvas = document.getElementById('genderChart').getContext('2d');
+    var genderChart = new Chart(genderChartCanvas, {
+        type: 'bar',
+        data: {
+            labels: genderData.map(entry => entry.gender),
+            datasets: [{
+                label: 'User Count',
+                data: genderData.map(entry => entry.count),
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        }
+    });
+
+    var monthlyChartCanvas = document.getElementById('monthlyChart').getContext('2d');
+    var monthlyChart = new Chart(monthlyChartCanvas, {
+        type: 'line',
+        data: {
+            labels: monthlyData.map(entry => {
+                return new Intl.DateTimeFormat('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    timeZone: 'UTC'
+                }).format(new Date(entry.month));
+            }),
+            datasets: [{
+                label: 'User Count',
+                data: monthlyData.map(entry => entry.count),
+                fill: false,
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 2
+            }]
+        }
+    });
+</script>
+{% endblock scripts %}

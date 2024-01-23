@@ -1,0 +1,20 @@
+{% extends 'base/index.html' %}
+
+{% load bootstrap_forms_tags %}
+
+{% block content %}
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <h2>Create a User</h2>
+    </div>
+    <div class="card-body">
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <button class="btn btn-primary mt-3 w-100" type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

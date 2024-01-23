@@ -1,0 +1,91 @@
+<aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'main-home' %}">
+          <i class="bi bi-grid"></i>
+          <span>Dashboard</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#user" data-bs-toggle="collapse" href="#">
+          <i class="fa-solid fa-building-user"></i><span>Users</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="user" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{% url 'main-users-all' %}" class="active">
+              <i class="bi bi-circle"></i><span>All User</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'main-user-add' %}">
+              <i class="bi bi-circle"></i><span>Add User</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#analysis_data" data-bs-toggle="collapse" href="#">
+          <i class="fa-solid fa-magnifying-glass-chart"></i><span>Analysis</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="analysis_data" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{% url 'main-user_files' %}" class="active">
+              <i class="bi bi-circle"></i><span>All Files</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'main-upload_file' %}">
+              <i class="bi bi-circle"></i><span>Add File</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#bill_view" data-bs-toggle="collapse" href="#">
+          <i class="fa-solid fa-users-viewfinder"></i><span>Billionaires</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="bill_view" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{% url 'main-bil' %}" class="active">
+              <i class="bi bi-circle"></i><span>View all</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'main-bil-wishlist' %}">
+              <i class="bi bi-circle"></i><span>Watchlist</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="nav-heading">Pages</li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{% url 'main-business-growth' %}">
+          <i class="fa-solid fa-business-time"></i>
+          <span>Business Growth</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{% url 'main-quiz-page' %}">
+          <i class="fa-solid fa-gauge-simple-high"></i>
+          <span>Quiz</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="pages-contact.html">
+          <i class="bi bi-envelope"></i>
+          <span>Contact</span>
+        </a>
+      </li>
+
+    </ul>
+
+  </aside>

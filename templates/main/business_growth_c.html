@@ -1,0 +1,175 @@
+{% extends 'base/index.html' %}
+
+{% block content %}
+<div class="container mx-auto p-8">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="font-bold">Business Growth Calculator</h2>
+        </div>
+        <div class="card-body">
+            <form id="calculationForm" class="mb-6 fade-in">
+                <div class="mb-2">
+                    <label for="startYear" class="form-label">Start Date:</label>
+                    <input type="date" id="startYear" class="form-control" required>
+                </div>
+        
+                <div class="mb-2">
+                    <label for="investment" class="form-label">Investment at Start:</label>
+                    <input type="number" id="investment" class="form-control" placeholder="Enter investment" required>
+                </div>
+        
+                <div class="mb-2">
+                    <label for="netWorth" class="form-label">Total Net Worth Today:</label>
+                    <input type="number" id="netWorth" class="form-control" placeholder="Enter net worth" required>
+                </div>
+        
+                <div class="mb-2">
+                    <label for="timeSlider" class="form-label">Time in Years:</label>
+                    <input type="range" id="timeSlider" min="1" max="50" step="1" value="1" class="form-range">
+                    <span id="timeOutput">1</span>
+                </div>
+        
+                <div class="mb-2">
+                    <label for="speedSlider" class="form-label">Speed:</label>
+                    <input type="range" id="speedSlider" min="0.1" max="10" step="0.1" value="1" class="form-range">
+                    <span id="speedOutput">1</span>
+                </div>
+        
+                <button type="button" id="submitButton" class="btn btn-primary mt-2 w-100">Submit</button>
+            </form>
+        </div>
+    </div>
+    <canvas id="growthChart" class="fade-in"></canvas>
+    <div class="card">
+        <div class="card-header m-0 p-1">
+            <p>Result: </p>
+        </div>
+        <div id="resultOutput" class="p-2 fade-in">Submit the form to see the result.</div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block scripts %}
+<script>
+    // Function to calculate ROI based on the formula
+    function calculateROI(startYear, netWorth, investment) {
+        const currentDate = new Date();
+        const startDate = new Date(startYear);
+        const days = Math.floor((currentDate - startDate) / (24 * 60 * 60 * 1000)); // Calculate days difference
+        const t = days / 365;
+        const roi = 100 * (Math.pow((netWorth / investment), 1 / t) - 1);
+        return { roi, days };
+    }
+
+    // Function to calculate result based on the corrected formula
+    function calculateResult(currentDate, investment, netWorth, years, speed) {
+        const { roi, days } = calculateROI(currentDate, netWorth, investment);
+        const result = netWorth * Math.pow((1 + (roi * speed) / 100), years);
+        return { roi, days, result };
+    }
+
+    
+
+    // Function to update the chart and result dynamically
+    function updateChart(startYear, investment, netWorth, years, speed) {
+        const ctx = document.getElementById('growthChart').getContext('2d');
+        const labels = [];
+        const data = [];
+
+        const currentDate = new Date();
+        const result = calculateResult(startYear, investment, netWorth, years, speed);
+
+        if (!result) {
+            // Display an error message if the result is not valid
+            $('#resultOutput').html('<p>Error: Invalid input or calculation issue</p>');
+            return;
+        }
+
+        for (let i = 0; i <= years; i++) {
+            const value = calculateResult(startYear, investment, netWorth, i, speed);
+
+            labels.push((parseInt(startYear.substring(0, 4)) + i).toString());
+            data.push(value.result.toFixed(2));
+        }
+
+        const chartData = {
+            labels: labels,
+            datasets: [{
+                label: 'Net Worth Over Time',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                data: data,
+                fill: false
+            }]
+        };
+
+        const chartOptions = {
+            scales: {
+                x: {
+                    type: 'linear',
+                    position: 'bottom'
+                },
+                y: {
+                    type: 'linear',
+                    position: 'left'
+                }
+            }
+        };
+
+        // Destroy the existing chart before creating a new one
+        if (window.myChart) {
+            window.myChart.destroy();
+        }
+
+        // Add fade-in class to elements for animation
+        $('#calculationForm, #growthChart, #resultOutput').addClass('fade-in');
+
+        window.myChart = new Chart(ctx, {
+            type: 'line',
+            data: chartData,
+            options: chartOptions
+        });
+
+        // Update result output
+        $('#resultOutput').html(`
+            <p>Today's Date: ${currentDate.toLocaleDateString()}</p>
+            <p>Start Date: ${startYear}</p>
+            <p>Number of Days: ${result.days}</p>
+            <p>ROI: ${result.roi.toFixed(2)}%</p>
+            <p>Initial Investment: ${investment.toFixed(2)}</p>
+            <p>Investment Today: ${netWorth.toFixed(2)}</p>
+            <p>Net Value After ${years} Years with Speed of ${speed}: ${result.result.toFixed(2)}</p>
+        `);
+    }
+
+    // Event listener for input changes
+    $('#startYear, #investment, #netWorth, #timeSlider, #speedSlider').on('input', function () {
+        const startYear = $('#startYear').val();
+        const investment = parseFloat($('#investment').val()) || 0;
+        const netWorth = parseFloat($('#netWorth').val()) || 0;
+        const years = parseInt($('#timeSlider').val());
+        const speed = parseFloat($('#speedSlider').val());
+
+        // Update time and speed outputs
+        $('#timeOutput').text(years);
+        $('#speedOutput').text(speed);
+    });
+
+    // Event listener for submit button
+    $('#submitButton').on('click', function () {
+        const startYear = $('#startYear').val();
+        const investment = parseFloat($('#investment').val()) || 0;
+        const netWorth = parseFloat($('#netWorth').val()) || 0;
+        const years = parseInt($('#timeSlider').val());
+        const speed = parseFloat($('#speedSlider').val());
+
+        // Remove fade-in class before updating to trigger animation again
+        $('#calculationForm, #growthChart, #resultOutput').removeClass('fade-in');
+
+        // Update the chart and result dynamically
+        updateChart(startYear, investment, netWorth, years, speed);
+    });
+
+    // Initial chart update
+    $('#startYear').trigger('input');
+</script>
+{% endblock scripts %}

@@ -1,0 +1,68 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+
+{% block title %}
+Login | {{site_name}}
+{% endblock title %}
+
+{% block content %}
+<div class="row justify-content-center align-items-center">
+    <div class="col-md-8 pt-4">
+      <div class="card" data-aos="fade-right" data-delay-aos="50">
+        <div class="card-title justify-content-center m-0 text-center p-2">
+          <h3 class="m-0 p-0">Sign In</h3>
+        </div>
+        <div class="card-body mt-2">
+          <form action="{% url 'accounts-login' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{next}}">
+            <div class="row mt-1">
+              <label class="col-sm-3 col-form-label" for="inputemail">Email address <span class="text-danger">*</span></label>
+              <div class="col-sm-9">
+                <input required type="email" name="email" placeholder="abc@gmail.com" class="form-control" id="inputemail"
+                value="{{ FieldValues.email }}" />
+              </div>
+            </div>
+
+  
+            
+            <div class="row mt-1">
+              <label class="col-sm-3 col-form-label" for="inputpassword">Password <span class="text-danger">*</span> 
+                <span class="nvs-tooltip" href="#" data-bs-toggle="tooltip" data-bs-placement="top"
+                    data-bs-custom-class="custom-tooltip" data-bs-title="<strong>★</strong> Password must contain atleast 8 characters." data-bs-html="true">
+                    <span class="badge rounded-pill text-bg-warning">i</span>
+                </span>
+              </label>
+              <div class="col-sm-9">
+                <div class="input-group">
+                  <input name="password" id="inputpassword" type="password" class="form-control" placeholder="Password" required>
+                  <span class="input-group-text">
+                    <i toggle="#inputpassword" class="fa fa-fw toggle-password fa-eye"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mt-3 mb-1">
+              <div class="col-sm-3"></div>
+              <div class="col-sm-9">
+                <div class="form-group d-flex">
+                  <div class="w-50 text-left">
+                    <input id="inputremember" type="checkbox" checked="" class="form-check-input check_box_nvs">
+                    <label for="inputremember" class="form-check-label checkbox-wrap checkbox-primary mb-0">Remember Me</label>
+                  </div>
+                  <div class="w-50 text-end">
+                    <a href="{% url 'accounts-forget-password' %}">Forgot Password</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button class="btn btn-default w-100 mt-3 submit-btn" type="submit">Submit</button>
+
+          </form>
+        </div>
+      </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,19 @@
+{% extends 'base/index.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Billionaires Compare WatchList</h2>
+    
+    <div class="card p-3">
+    {% if data %}
+    <ul class="list-group">
+    {% for i in data %}
+        <li class="list-group-item">{{i.name1}} vs {{i.name2}} <a class="btn btn-primary float-end btn-sm" href="{% url 'main-bil-cmp' %}?name1={{i.name1}}&name2={{i.name2}}">View</a> </li>
+    {% endfor %}
+    </ul>
+    {% else %}
+    <p class="text-center fs-6 text-gray mt-4">WishList is Empty!</p>
+    {% endif %}
+</div>
+</div>
+{% endblock content %}

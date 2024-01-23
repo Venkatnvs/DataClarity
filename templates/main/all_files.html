@@ -1,0 +1,23 @@
+{% extends 'base/index.html' %}
+
+{% block content %}
+<div class="container pt-2">
+    <a href="{% url 'main-upload_file' %}" class="btn btn-success float-end">Analyse new File <i class="fa-solid fa-square-plus"></i></a>
+    <h2>User Items</h2>
+    <div class="row">
+        {% for item in items %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    {% comment %} <img src="{% if item.file %}{{ item.file.url }}{% else %}https://via.placeholder.com/150{% endif %}" class="card-img-top" alt="File Image"> {% endcomment %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ item.title }}</h5>
+                        <p class="card-text">Created at: {{ item.created_at }}</p>
+                        <a href="{{ item.file.url }}" class="btn btn-primary" target="_blank">Download File</a>
+                        <a href="{% url 'dashboard-file-analysis' item.id %}" class="btn btn-info">View Analysis</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends 'base/index.html' %}
+
+{% block content %}
+<div class="container">
+    <h3 class="mb-4 text-center">Billionaires data</h3>
+
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Search Person" id="searchInput" oninput="searchData()">
+        <button class="btn btn-primary" onclick="initiateComparison()">Compare Selected</button>
+    </div>
+
+    <div class="spinner-border text-primary" role="status" id="loadingSpinner" style="display: none;">
+        <span class="sr-only">Loading...</span>
+    </div>
+
+    <div class="row" id="dataList">
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block scripts %}
+<script>
+    let selectedPersons = [];
+
+    function searchData() {
+        console.log("Helll")
+        document.getElementById('loadingSpinner').style.display = 'block';
+
+        const searchInput = document.getElementById('searchInput').value;
+        fetch(`{% url 'main-bil-api' %}?search=${searchInput}`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('loadingSpinner').style.display = 'none';
+                displayData(data);
+            });
+    }
+
+    function displayData(datas) {
+        const dataList = document.getElementById('dataList');
+        dataList.innerHTML = '';
+
+        datas.forEach(data => {
+            const dataItem = document.createElement('div');
+            dataItem.className = 'col-md-3 mb-4';
+            dataItem.innerHTML = `
+                <div class="card h-100">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="${data.name}" id="checkbox_${data.name}" onchange="handleCheckboxChange('${data.name}')">
+                        <label class="form-check-label" for="checkbox_${data.name}">
+                            ${data.name}
+                        </label>
+                    </div>
+                    <img style="max-height:140px;width:100%;" src="${data.squareImage ?? "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/450px-No_image_available.svg.png"}" class="card-img-top img-fluid" alt="Video Thumbnail">
+                    <div class="card-body p-1">
+                        <h5 class="card-title">${data.name}</h5>
+                        <p class="my-0">Rank: ${data.rank}</p>
+                        <p class="my-0">Gender: ${data.gender}, Age: ${data.age}</p>
+                        <p class="my-0">NetWorth: ${data.NetWorth}B</p>
+                        <p class="my-0">Residence: ${data.Residence}</p>
+                        <p class="my-0">Source: ${data.Source}</p>
+                    </div>
+                </div>
+            `;
+            dataList.appendChild(dataItem);
+        });
+    }
+
+    function handleCheckboxChange(name) {
+        const checkbox = document.getElementById(`checkbox_${name}`);
+        if (checkbox.checked) {
+            selectedPersons.push(name);
+        } else {
+            selectedPersons = selectedPersons.filter(person => person !== name);
+        }
+    }
+
+    function initiateComparison() {
+        if (selectedPersons.length === 2) {
+            const url = `/d/compare?name1=${selectedPersons[0]}&name2=${selectedPersons[1]}`;
+            window.location.href = url;
+        } else {
+            alert('Please select exactly two persons for comparison.');
+        }
+    }
+
+    searchData();
+</script>
+{% endblock scripts %}

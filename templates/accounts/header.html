@@ -1,0 +1,22 @@
+{% load static %}
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="" class="logo d-flex align-items-center">
+        <img class="" src="{% static 'icons/logo.jpg' %}" alt="">
+        <span class="d-lg-block">{{site_name}}</span>
+      </a>
+    </div>
+
+    <nav class="header-nav ms-auto">
+      <ul style="gap:10px" class="d-flex align-items-center mx-5">
+          <li class="nav-item">
+            <a href="{% url 'accounts-register' %}" class="btn btn-outline-success">Register</a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'accounts-login' %}" class="btn btn-success">Login</a>
+          </li>
+    </ul>
+
+    </nav>
+</header>

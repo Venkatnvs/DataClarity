@@ -1,0 +1,46 @@
+{% extends 'base/index.html' %}
+
+{% block content %}
+<div class="container pt-2">
+    <form  method="post">
+        {% csrf_token %}
+        <input class="d-none" type="hidden" name="name1" value="{{name1}}">
+        <input class="d-none" type="hidden" name="name2" value="{{name2}}">
+        <button class="btn btn-info float-end" type="submit">Add to WatchList <i class="fa-solid fa-plus"></i></button>
+    </form>
+    <h3 class="mb-4 text-center">Comparison between {{ name1 }} and {{ name2 }}</h3>
+
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            {{ networth_graph|safe }}
+        </div>
+        <div class="col-md-6 mb-4">
+            {{ scatter_rank_graph|safe }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            {{ age_distribution_html|safe }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            {{ industries_pie_chart1|safe }}
+        </div>
+        <div class="col-md-6">
+            {{ industries_pie_chart2|safe }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            {{ financial_assets_chart|safe }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            {{ Source_chart|safe }}
+        </div>
+    </div>
+</div>
+{% endblock content %}

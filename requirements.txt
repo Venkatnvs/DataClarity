@@ -1,0 +1,8 @@
+Django
+python-decouple
+pandas
+plotly
+requests
+nvs-bootstrap-forms
+validate_email
+xlwt
