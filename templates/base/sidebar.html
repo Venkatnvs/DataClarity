@@ -62,8 +62,26 @@
           </li>
         </ul>
       </li>
+    
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#quiz_view" data-bs-toggle="collapse" href="#">
+          <i class="fa-solid fa-gauge-simple-high"></i><span>Quiz</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="quiz_view" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{% url 'main-quiz-page' %}" class="active">
+              <i class="bi bi-circle"></i><span>Take Quiz</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'main-quiz-result' %}">
+              <i class="bi bi-circle"></i><span>Result Details</span>
+            </a>
+          </li>
+        </ul>
+      </li>
 
-      <li class="nav-heading">Pages</li>
+      {% comment %} <li class="nav-heading">Pages</li> {% endcomment %}
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="{% url 'main-business-growth' %}">
@@ -72,19 +90,13 @@
         </a>
       </li>
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="{% url 'main-quiz-page' %}">
-          <i class="fa-solid fa-gauge-simple-high"></i>
-          <span>Quiz</span>
-        </a>
-      </li>
 
-      <li class="nav-item">
+      {% comment %} <li class="nav-item">
         <a class="nav-link collapsed" href="pages-contact.html">
           <i class="bi bi-envelope"></i>
           <span>Contact</span>
         </a>
-      </li>
+      </li> {% endcomment %}
 
     </ul>
 

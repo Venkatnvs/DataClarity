@@ -48,9 +48,9 @@
                                             Select an option
                                         </button>
                                         <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-eye"></i> View Details</a></li>
-                                            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-pen-to-square"></i> Edit</a></li>
-                                            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-trash"></i> Delete</a></li>
+                                            <li><a class="dropdown-item" href="{% url 'main-user-details' i.id %}"><i class="fa-solid fa-eye"></i> View Details</a></li>
+                                            <li><a class="dropdown-item" href="{% url 'main-user-edit' i.id %}"><i class="fa-solid fa-pen-to-square"></i> Edit</a></li>
+                                            <li><a class="dropdown-item" href="{% url 'main-user-delete' i.id %}"><i class="fa-solid fa-trash"></i> Delete</a></li>
                                         </ul>
                                     </div>
                                 </td>

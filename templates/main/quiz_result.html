@@ -1,0 +1,31 @@
+{% extends "base/index.html" %}
+
+{% block content %}
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h2>Result Details</h2>
+            </div>
+            <div class="card-body pt-2">
+                <div class="container"> <div class="row"> <div class="column"> <h3>Passion for Success</h3> <p>High scorers here are visionaries and self-reliant. They have a positive outlook and are driven by goals. They are dynamic, confident in their abilities, and committed to achieving their objectives.</p> </div> <div class="column"> <h3>Independent Drive</h3> <p>High scorers are original thinkers who value self-direction and personal agency. They prefer solitary work to group efforts, follow their own convictions, and resist external influence.</p> </div> <div class="column"> <h3>Innovative Spirit</h3> <p>Individuals scoring high here are creative problem-solvers. They often engage in thoughtful reverse, are adaptable, brimming with ideas, and naturally understand complex situations. They thrive on innovation and change.</p> </div> <div class="column"> <h3>Strategic Risk Management</h3> <p>Those who do well in this section are pragmatic decision-makers. They can operate with partial information, make sound judgments about their abilities, balance ambition, and carefully weigh risks against rewards.</p> </div> <div class="column"> <h3>Resolute Motivation</h3> <p>High achievers in this section seize opportunities and create their own paths. They are confident, masters of their fate, eager to hard work with success, and have unwavering determination.</p> </div> </div> </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+
+{% block styles %}
+<style>
+    
+    .column { position: relative; width: 50%; min-height: 1px; padding-right: 15px; padding-left: 15px; }
+    
+    .row .column { float: left; }
+    
+    .row .column img { width: 100%; height: auto; margin-bottom: 20px; }
+    
+    .caption { padding: 6px 12px; color: #fff; background-color: #1a1a1a; position: absolute; bottom: 0; width: 100%; text-align: center; }
+    
+    .row .column h3 { margin-top: 0; margin-bottom: 10px; font-weight: bold; font-size: 18px; }
+    
+    .row .column p { font-size: 16px; line-height: 24px; margin-bottom: 20px; } </style>
+{% endblock styles %}

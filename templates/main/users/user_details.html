@@ -1,0 +1,23 @@
+{% extends 'base/index.html' %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header py-2">
+        <h2>User Detail</h2>
+    </div>
+    <div class="card-body pt-1">
+        <p><strong>Email:</strong> {{ users.email }}</p>
+        <p><strong>Full Name:</strong> {{ users.full_name }}</p>
+        <p><strong>Gender:</strong> {{ users.gender }}</p>
+        <p><strong>Mobile Number:</strong> {{ users.mobile_no }}</p>
+        <p><strong>Is Active</strong> {{ users.is_active }}</p>
+        <p class="card-text m-0"><span class="fw-bold">Last Logined:</span> {{ users.last_login }}</p>
+        <p class="card-text m-0"><span class="fw-bold">Created at:</span> {{ users.date_joined }}</p>
+    </div>
+    <div class="card-footer">
+        <a class="btn btn-primary" href="{% url 'main-user-edit' users.id %}">Edit</a>
+        <a class="btn btn-danger" href="{% url 'main-user-delete' users.id %}">Delete</a>
+        <a class="btn btn-secondary" href="{% url 'main-users-all' %}"><i class="fa-solid fa-arrow-left"></i> Back to List</a>
+    </div>
+</div>
+{% endblock content %}

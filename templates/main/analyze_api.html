@@ -1,0 +1,15 @@
+{% extends 'base/index.html' %}
+
+{% block content %}
+    <h2>Analyze API</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label for="api_url">API URL:</label>
+        <input type="text" name="api_url" required>
+        <br>
+        <label for="api_key">API Key (if required):</label>
+        <input type="text" name="api_key">
+        <br>
+        <button type="submit">Analyze</button>
+    </form>
+{% endblock %}

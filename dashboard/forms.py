@@ -21,5 +21,10 @@ class UploadFileForm(forms.ModelForm):
 class UserCreateForm(UserCreationForm):
     class Meta: 
         model = User
-        fields = ['email','password','first_name','last_name','gender','mobile_no']
+        fields = ['email','first_name','last_name','gender','mobile_no','is_active']
+
+class UserForm(forms.ModelForm):
+    class Meta: 
+        model = User
+        fields = ['email','first_name','last_name','gender','mobile_no','is_active']
             

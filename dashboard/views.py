@@ -1,6 +1,6 @@
-from django.shortcuts import render,redirect,HttpResponse
+from django.shortcuts import render,redirect,HttpResponse,get_object_or_404
 from .models import UploadedFile,BillionairesWishlist
-from .forms import UploadFileForm, UserCreateForm
+from .forms import UploadFileForm, UserCreateForm, UserForm
 import requests
 from django.http import JsonResponse
 from concurrent.futures import ThreadPoolExecutor
@@ -23,6 +23,9 @@ from django.db.models.functions import Concat
 from django.contrib import messages
 import os
 from django.conf import settings
+from .models import BillionairesWishlist
+from django.views.generic import ListView, CreateView, UpdateView, DetailView,DeleteView
+from django.urls import reverse,reverse_lazy
 
 User = get_user_model()
 
@@ -58,11 +61,12 @@ def chart_view():
 def main(request):
     users = User.objects.all().count()
     analysis = UploadedFile.objects.filter(user=request.user).count()
+    bil_c = BillionairesWishlist.objects.filter(user=request.user).count()
     a,b = chart_view()
     context = {
         'user_count':users,
         'analysis_count':analysis,
-        'contact_msg_count':0,
+        'contact_msg_count':bil_c,
         "graphs_1":json.dumps(a,cls=DjangoJSONEncoder),
         "graphs_2":json.dumps(b,cls=DjangoJSONEncoder),
     }
@@ -131,6 +135,15 @@ def BilWishList(request):
     return render(request,'main/bil_wishlist.html',{'data':data})
 
 @login_required()
+def BilWatchDel(request,id):
+    data = get_object_or_404(BillionairesWishlist,id=id)
+    if request.user == data.user:
+        data.delete()
+    else:
+        return HttpResponse("You don't have access")
+    return redirect('main-bil-wishlist')
+
+@login_required()
 def AllUsersView(request):
     if not request.user.is_superuser:
         return HttpResponse("You Don't have Access to this page.")
@@ -157,6 +170,30 @@ class UserAddView(LoginRequiredMixin,View):
             return redirect('main-users-all')
         messages.error(request,'Some thing went Wrong') 
         return redirect('main-user-add')
+    
+class UserDetails(LoginRequiredMixin,DetailView):
+    model = User
+    template_name = "main/users/user_details.html"
+    context_object_name = "users"
+
+class UserUpdateView(LoginRequiredMixin,UpdateView):
+    model = User
+    form_class = UserForm
+    template_name = 'main/users/user_update.html'
+    context_object_name = 'users'
+    success_url = reverse_lazy('main-users-all')
+
+    
+class UserDeleteView(LoginRequiredMixin,DeleteView):
+    model = User
+    template_name = 'main/users/user_conform_delete.html'
+    context_object_name = "users"
+    success_url = reverse_lazy('main-users-all')
+
+
+@login_required()
+def QuizResult(request):
+    return render(request,'main/quiz_result.html')
 
 # Export Data Users
 @login_required()

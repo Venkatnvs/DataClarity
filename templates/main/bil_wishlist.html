@@ -8,7 +8,7 @@
     {% if data %}
     <ul class="list-group">
     {% for i in data %}
-        <li class="list-group-item">{{i.name1}} vs {{i.name2}} <a class="btn btn-primary float-end btn-sm" href="{% url 'main-bil-cmp' %}?name1={{i.name1}}&name2={{i.name2}}">View</a> </li>
+        <li class="list-group-item">{{i.name1}} vs {{i.name2}} <a class="btn btn-primary float-end btn-sm" href="{% url 'main-bil-cmp' %}?name1={{i.name1}}&name2={{i.name2}}">View</a><a href="{% url 'main-bil-wishlist-del' i.id %}" class="btn btn-danger mx-1 float-end btn-sm">Delete</a> </li>
     {% endfor %}
     </ul>
     {% else %}
