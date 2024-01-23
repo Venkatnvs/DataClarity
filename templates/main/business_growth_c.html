@@ -51,6 +51,7 @@
 
 {% block scripts %}
 <script>
+    let c_results = []
     // Function to calculate ROI based on the formula
     function calculateROI(startYear, netWorth, investment) {
         const currentDate = new Date();
@@ -78,6 +79,24 @@
 
         const currentDate = new Date();
         const result = calculateResult(startYear, investment, netWorth, years, speed);
+
+        if(result){
+            c_results.push(result)
+            console.log(result,startYear,years)
+            fetch(`{% url 'main-api-b' %}`,
+            {
+                method: "POST",
+                body: JSON.stringify({
+                    result: result,
+                    years: years,
+                    startDate:startYear
+                }),
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            }
+            )
+        }
 
         if (!result) {
             // Display an error message if the result is not valid

@@ -8911,5 +8911,147 @@
         "abouts": [
             "Persson personally owns real estate in some of the world's most glamorous shopping districts, spanning  New York, London, Rome and Paris."
         ]
+    },
+    {
+        "naturalId": "faris/35/0/4263",
+        "name": "Real-Time Billionaires",
+        "year": 0,
+        "uri": "venkat-swaroop",
+        "rank": 101,
+        "listUri": "rtb",
+        "visible": true,
+        "position": 100,
+        "imageExists": true,
+        "bio": "",
+        "finalWorth": 15881.384,
+        "person": {
+            "name": "Venkat Swaroop",
+            "uri": "venkat-swaroop",
+            "imageExists": true,
+            "squareImage": "https://lh3.googleusercontent.com/ogw/ANLem4YlF6o9L6auW1ihVwrs_T3ropx0YrCjNR7FzrqoIg=s64-c-mo"
+        },
+        "personName": "Venkat Swaroop",
+        "city": "Stockholm",
+        "source": "NVS",
+        "industries": [
+            "Tech"
+        ],
+        "countryOfCitizenship": "Sweden",
+        "timestamp": 1705860601780,
+        "version": 734342,
+        "gender": "M",
+        "birthDate": -1187913600000,
+        "lastName": "Persson",
+        "financialAssets": [
+            {
+                "exchange": "BSE",
+                "ticker": "AA",
+                "companyName": "NVS",
+                "numberOfShares": 2870000,
+                "sharePrice": 21.917651434948066,
+                "currencyCode": "SEK",
+                "exchangeRate": 10.4847,
+                "interactive": false
+            }
+        ],
+        "date": 725846400000,
+        "wealthList": false,
+        "estWorthPrev": 17881.383816,
+        "privateAssetsWorth": 7818.573797,
+        "familyList": false,
+        "interactive": false,
+        "archivedWorth": 16200,
+        "squareImage": "https://specials-images.forbesimg.com/imageserve/5c721cd64bbe6f51818ab844/416x416.jpg?background=000000&cropX1=1176&cropX2=2731&cropY1=522&cropY2=2076",
+        "bioSuppress": false,
+        "csfDisplayFields": [
+            "rank",
+            "age",
+            "source",
+            "finalWorth",
+            "personName",
+            "bios",
+            "bio",
+            "countryOfCitizenship"
+        ],
+        "bios": [
+            "Stefan Persson is Sweden's richest person by way of global cheap chic fashion retailer Hennes &amp; Mauritz, of which he owns 36%.",
+            "Persson stepped down as chairman in May 2020 after 22 years in the role; his son Karl-Johan succeeded him.",
+            "H&M was founded by Persson's father Erling in 1947.",
+            "Persson's two other children, Charlotte S'derstr?m and Tom Persson, and his sister Lottie Tham, are also billionaires."
+        ],
+        "abouts": [
+            "Persson personally owns real estate in some of the world's most glamorous shopping districts, spanning  New York, London, Rome and Paris."
+        ]
+    },
+    {
+        "naturalId": "faris/35/0/4263",
+        "name": "Real-Time Billionaires",
+        "year": 0,
+        "uri": "venkat-swaroop",
+        "rank": 102,
+        "listUri": "rtb",
+        "visible": true,
+        "position": 100,
+        "imageExists": true,
+        "bio": "",
+        "finalWorth": 10881.384,
+        "person": {
+            "name": "Darshil Mahraur",
+            "uri": "venkat-swaroop",
+            "imageExists": true,
+            "squareImage": "https://media.licdn.com/dms/image/D5603AQF4ZaJsRKmBzw/profile-displayphoto-shrink_100_100/0/1691263508433?e=1711584000&v=beta&t=hdwBhP5gye5BVSD-jcpTABq-ZVpdhJh-Hm9LEzHlj_4"
+        },
+        "personName": "Darshil Mahraur",
+        "city": "Stockholm",
+        "source": "hiremeClub",
+        "industries": [
+            "AI"
+        ],
+        "countryOfCitizenship": "Sweden",
+        "timestamp": 1705860601780,
+        "version": 734342,
+        "gender": "M",
+        "birthDate": -702000000000,
+        "lastName": "Persson",
+        "financialAssets": [
+            {
+                "exchange": "BSE",
+                "ticker": "Reliance",
+                "companyName": "hirmeclub",
+                "numberOfShares": 1000000,
+                "sharePrice": 31.917651434948066,
+                "currencyCode": "SEK",
+                "exchangeRate": 10.4847,
+                "interactive": false
+            }
+        ],
+        "date": 725846400000,
+        "wealthList": false,
+        "estWorthPrev": 17881.383816,
+        "privateAssetsWorth": 7818.573797,
+        "familyList": false,
+        "interactive": false,
+        "archivedWorth": 16200,
+        "squareImage": "https://specials-images.forbesimg.com/imageserve/5c721cd64bbe6f51818ab844/416x416.jpg?background=000000&cropX1=1176&cropX2=2731&cropY1=522&cropY2=2076",
+        "bioSuppress": false,
+        "csfDisplayFields": [
+            "rank",
+            "age",
+            "source",
+            "finalWorth",
+            "personName",
+            "bios",
+            "bio",
+            "countryOfCitizenship"
+        ],
+        "bios": [
+            "Stefan Persson is Sweden's richest person by way of global cheap chic fashion retailer Hennes &amp; Mauritz, of which he owns 36%.",
+            "Persson stepped down as chairman in May 2020 after 22 years in the role; his son Karl-Johan succeeded him.",
+            "H&M was founded by Persson's father Erling in 1947.",
+            "Persson's two other children, Charlotte S'derstr?m and Tom Persson, and his sister Lottie Tham, are also billionaires."
+        ],
+        "abouts": [
+            "Persson personally owns real estate in some of the world's most glamorous shopping districts, spanning  New York, London, Rome and Paris."
+        ]
     }
 ]

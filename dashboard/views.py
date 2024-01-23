@@ -23,9 +23,10 @@ from django.db.models.functions import Concat
 from django.contrib import messages
 import os
 from django.conf import settings
-from .models import BillionairesWishlist
+from .models import BillionairesWishlist,BusinessData
 from django.views.generic import ListView, CreateView, UpdateView, DetailView,DeleteView
 from django.urls import reverse,reverse_lazy
+import plotly.express as px
 
 User = get_user_model()
 
@@ -81,11 +82,12 @@ class BillionairesSearch(LoginRequiredMixin,View):
     def get(self,request):
         search_query = request.GET.get('search', '').lower()
         get_type = request.GET.get('get', '').lower()
-        data = cache.get('billionaires_data',None)
-        if data is None:
-            with ThreadPoolExecutor() as executor:
-                data = executor.submit(self.fetch_billionaires).result()
-            cache.set('billionaires_data', data, timeout=1800)
+        # data = cache.get('billionaires_data',None)
+        # data = None
+        # if data is None:
+        with ThreadPoolExecutor() as executor:
+            data = executor.submit(self.fetch_billionaires).result()
+            # cache.set('billionaires_data', data, timeout=1800)
 
         if data:
             final_data = []
@@ -194,6 +196,32 @@ class UserDeleteView(LoginRequiredMixin,DeleteView):
 @login_required()
 def QuizResult(request):
     return render(request,'main/quiz_result.html')
+
+@login_required()
+def CalcResult(request):
+    data = json.loads(request.body)
+    data1 = data['result']
+    data2 = data['startDate']
+    data3 = data['years']
+    date = datetime.strptime(data2, '%Y-%m-%d')
+    result_date = date + timedelta(days=365 * int(data3))
+    result_date_str = result_date.strftime('%Y-%m-%d')
+    a = BusinessData.objects.create(roi=data1['roi'],days=data1['days'],result=data1['result'],startdate=date,enddate=result_date_str)
+    a.save()
+    return JsonResponse({'roi':a.roi,'days':a.days,"result":a.result}, safe=False)
+
+def ResultCalc(request):
+    business_data = BusinessData.objects.all()
+    labels = [entry.startdate.strftime('%Y-%m-%dT%H:%M:%S.%fZ') for entry in business_data]
+    results = [entry.result for entry in business_data]
+    fig = px.bar(x=labels, y=results, labels={'x': 'Start Date', 'y': 'Result'})
+    fig.update_layout(
+        title='Business Data Bar Graph',
+        xaxis_title='Start Date',
+        yaxis_title='Result'
+    )
+    graph_html = fig.to_html(full_html=False)
+    return render(request,'main/graph_business.html',{'g_html':graph_html})
 
 # Export Data Users
 @login_required()

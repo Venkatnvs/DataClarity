@@ -21,4 +21,14 @@ class BillionairesWishlist(models.Model):
     last_updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f'{self.name1} vs {self.name2}'
+        return f'{self.name1} vs {self.name2}'\
+        
+class BusinessData(models.Model):
+    roi = models.CharField(max_length = 255,null=True, blank=True)
+    days = models.CharField(max_length = 255,null=True, blank=True)
+    result = models.CharField(max_length = 255,null=True, blank=True)
+    startdate = models.DateTimeField(null=True, blank=True)
+    enddate = models.DateTimeField(null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.roi}"

@@ -2,6 +2,7 @@ from django.urls import path, include
 from .views import *
 from analysis.compare_bill import CompareBillionaires
 from analysis.api_analysis import AnalyzeApi
+from django.views.decorators.csrf import csrf_exempt
 
 urlpatterns = [
     path("", main, name="main-home"),
@@ -22,6 +23,8 @@ urlpatterns = [
     path("user-delete/<int:pk>/", UserDeleteView.as_view(), name="main-user-delete"),
 
     path("business-growth", BusinessGrowthcls, name="main-business-growth"),
+    path("business-graph", ResultCalc, name="main-business-graph"),
+    path("business-b", csrf_exempt(CalcResult), name="main-api-b"),
     path("quiz-page", QuizPage, name="main-quiz-page"),
     path("quiz-result", QuizResult, name="main-quiz-result"),
 
